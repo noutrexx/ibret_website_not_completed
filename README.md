@@ -18,6 +18,16 @@ Bu proje, Laravel 12 kullanılarak geliştirilen modern bir haber ve içerik yö
 
 Kurulum (Geliştiriciler İçin)
 
+Kullanılan Teknolojiler (Tech Stack)
+
+Bu proje modern bir web mimarisi üzerine inşa edilmiştir:
+
+ Core: [Laravel 12](https://laravel.com/) (PHP 8.3)
+ Database: [Oracle Database XE](https://www.oracle.com/database/technologies/appdev/xe.html)
+ Database Driver: [Yajra Laravel-OCI8](https://github.com/yajra/laravel-oci8)
+ Frontend: [Tailwind CSS](https://tailwindcss.com/) & Blade Templating
+ Testing: [Pest](https://pestphp.com/) & PHPUnit
+
 Projeyi yerel ortamınızda çalıştırmak için:
 
 1.  Repoyu klonlayın.
