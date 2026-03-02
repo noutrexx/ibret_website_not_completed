@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        if (!Schema::hasTable('articles')) return;
+
+        $articles = DB::table('articles')->get();
+
+        foreach ($articles as $a) {
+            DB::table('posts')->insert([
+                'category_id'   => $a->category_id,
+                'user_id'       => $a->user_id,
+                'title'         => $a->title,
+                'slug'          => $a->slug ?: Str::slug($a->title),
+                'summary'       => null,
+                'content'       => $a->content,
+                'type'          => null,                 // manşet/sürmanşet vs. haber mantığı
+                'image'         => null,
+                'video_url'     => null,
+                'city'          => null,
+                'view_count'    => $a->view_count ?? 0,
+                'published_at'  => ($a->status ?? 'draft') === 'published' ? now() : null,
+                'status'        => $a->status ?? 'draft',
+                'content_kind'  => 'article',
+                'created_at'    => $a->created_at ?? now(),
+                'updated_at'    => $a->updated_at ?? now(),
+                // soft delete kullanıyorsan:
+                'deleted_at'    => $a->deleted_at ?? null,
+            ]);
+        }
+    }
+
+    public function down(): void
+    {
+        DB::table('posts')->where('content_kind', 'article')->delete();
+    }
+};
